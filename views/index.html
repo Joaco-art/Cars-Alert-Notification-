@@ -8,18 +8,19 @@
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
 
-    <!-- Navbar con buscador -->
-   
+    <!-- Navbar with search -->
     {{> header}}
-    <!-- Contenido principal -->
+
+    <!-- Main content -->
     <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        {{> hero}}
         
         {{> anunciosDestacados}}
         
-        
         <div class="mb-8" id="registro">
-            <h1 class="text-3xl font-bold tracking-tight text-slate-900">Bienvenido al creador de alertas personalizadas de vehículos</h1>
-            <p class="mt-1 text-sm text-slate-600">Configura los parámetros del vehículo para recibir alertas cuando aparezca una coincidencia.</p>
+            <h1 class="text-3xl font-bold tracking-tight text-slate-900">Welcome to the custom vehicle alert creator</h1>
+            <p class="mt-1 text-sm text-slate-600">Set up your vehicle parameters to receive alerts as soon as a matching listing appears.</p>
         </div>
 
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8">
@@ -127,7 +128,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <label for="price" class="block text-sm font-medium text-slate-700 mb-1.5">Price less than (EUR)</label>
+                        <label for="price" class="block text-sm font-medium text-slate-700 mb-1.5">Max Price (EUR)</label>
                         <input
                             type="number"
                             id="price"
@@ -141,7 +142,7 @@
                     </div>
 
                     <div>
-                        <label for="km" class="block text-sm font-medium text-slate-700 mb-1.5">Km less than</label>
+                        <label for="km" class="block text-sm font-medium text-slate-700 mb-1.5">Max Mileage (km)</label>
                         <input
                             type="number"
                             id="km"
@@ -154,16 +155,48 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="condition" class="block text-sm font-medium text-slate-700 mb-1.5">Condition</label>
+                        <select
+                            id="condition"
+                            name="condition"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Select condition</option>
+                            <option value="New">New</option>
+                            <option value="Used">Used</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="hasAccident" class="block text-sm font-medium text-slate-700 mb-1.5">Accident History</label>
+                        <select
+                            id="hasAccident"
+                            name="hasAccident"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Include cars with accidents or repairs?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                
                 <div class="pt-2">
                     <button
                         type="submit"
                         class="w-full sm:w-auto inline-flex justify-center items-center rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition-colors cursor-pointer"
                     >
-                        Save Vehicle
+                        Save Alert
                     </button>
                 </div>
             </form>
         </div>
+
+        {{faq}}
     </main>
 
     <!-- Footer -->

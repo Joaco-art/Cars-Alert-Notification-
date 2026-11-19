@@ -2,54 +2,68 @@ import { ObjectId } from "mongodb";
 import { carsAlert } from "./db.js";
 
 export async function setAlert(req, res) {
-    try {
-        const newAlert = {
-            _id: new ObjectId(),
-            name: req.body.username,
-            email: req.body.email,
-            brand: req.body.brand,
-            model: req.body.model,
-            year: Number(req.body.year),
-            fuel: req.body.fuel_type,
-            price: Number(req.body.price),
-            km: Number(req.body.km),
-            createdAt: new Date()
-        };
+    const newAlert = {
+        _id: new ObjectId(),
+        name: String(req.body.username ?? "").trim(),
+        email: String(req.body.email ?? "").trim(),
+        brand: String(req.body.brand ?? "").trim(),
+        model: String(req.body.model ?? "").trim(),
+        year: Number(req.body.year),
+        fuel: String(req.body.fuel_type ?? "").trim(),
+        price: Number(req.body.price),
+        km: Number(req.body.km),
+        condition: String(req.body.condition ?? "").trim(),
+        hasAccident: String(req.body.hasAccident ?? "").trim(),
+        createdAt: new Date()
+    };
 
-        const result = await carsAlert.insertOne(newAlert);
-        return res.redirect(`/carAlert/${result.insertedId}`);
-    } catch (error) {
-        console.error("Error al guardar la alerta:", error);
-        return res.status(500).send("Error interno al guardar la alerta.");
+    const hasInvalidText = !newAlert.name || !newAlert.email
+        || !newAlert.brand || !newAlert.model
+        || !newAlert.fuel || !newAlert.condition
+        || !newAlert.hasAccident;
+
+    const isEmptyNumber =
+        String(req.body.year ?? "").trim() === "" ||
+        String(req.body.price ?? "").trim() === "" ||
+        String(req.body.km ?? "").trim() === "";
+
+    const hasInvalidNumbers =
+        isEmptyNumber ||
+        !Number.isFinite(newAlert.year) || newAlert.year < 1900 || newAlert.year > 2026 ||
+        !Number.isFinite(newAlert.price) || newAlert.price <= 0 ||
+        !Number.isFinite(newAlert.km) || newAlert.km < 0;
+
+    if (hasInvalidText || hasInvalidNumbers) {
+        return res.status(400).render("error");
     }
+
+    const result = await carsAlert.insertOne(newAlert);
+    return res.redirect(`/carAlert/${result.insertedId}`);
 }
 
 export async function getAlertInfo(req, res) {
-    try {
-        const { id } = req.params;
+    const { id } = req.params;
 
-        if (!ObjectId.isValid(id)) {
-            return res.status(400).send("ID de alerta no válido.");
-        }
-
-        const alert = await carsAlert.findOne({ _id: new ObjectId(id) });
-
-        if (!alert) {
-            return res.status(404).send("Alerta no encontrada.");
-        }
-
-        return res.render("carInfo", {
-            name: alert.name,
-            email: alert.email,
-            brand: alert.brand,
-            model: alert.model,
-            year: alert.year,
-            fuel: alert.fuel,
-            price: alert.price,
-            km: alert.km
-        });
-    } catch (error) {
-        console.error("Error al cargar la alerta:", error);
-        return res.status(500).send("Error interno al recuperar la alerta.");
+    if (!ObjectId.isValid(id)) {
+        return res.status(400).send("ID de alerta no válido.");
     }
+
+    const alert = await carsAlert.findOne({ _id: new ObjectId(id) });
+
+    if (!alert) {
+        return res.status(404).send("Alerta no encontrada.");
+    }
+
+    return res.render("carInfo", {
+        name: alert.name,
+        email: alert.email,
+        brand: alert.brand,
+        model: alert.model,
+        year: alert.year,
+        fuel: alert.fuel,
+        price: alert.price,
+        km: alert.km,
+        condition: alert.condition,
+        hasAccident: alert.hasAccident
+    });
 }
