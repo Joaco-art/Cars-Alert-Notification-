@@ -7,28 +7,41 @@ const brands = new Set([
     "tesla", "subaru", "mazda"
 ]);
 
-const MAX_PAGE_SIZE = 6;
-const PAGE_SIZE = 6;
+const MAX_PAGE_SIZE = 3;
+const PAGE_SIZE = 3;
 
-export async function getPaginatedCars(source = [], requestedPage = 1, pageSize = PAGE_SIZE) {
-    const list = await source;
-    const allItems = Array.isArray(list) ? list : [];
+export async function getPaginatedCars(source = [], requestedPage = 1) {
+  const list = await source;
+  const allItems = Array.isArray(list) ? list : [];
 
-    const parsedSize = parseInt(pageSize, 10);
-    const effectivePageSize = Math.min(
-        MAX_PAGE_SIZE,
-        Math.max(1, Number.isNaN(parsedSize) ? PAGE_SIZE : parsedSize)
-    );
+  const effectivePageSize = Math.min(MAX_PAGE_SIZE, Math.max(1, PAGE_SIZE));
+  const totalCars = allItems.length;
+  const totalPages = Math.max(1, Math.ceil(totalCars / effectivePageSize));
 
-    const page = Math.max(1, parseInt(requestedPage, 10) || 1);
-    const totalCars = allItems.length;
-    const totalPages = Math.max(1, Math.ceil(totalCars / effectivePageSize));
-    const currentPage = Math.min(page, totalPages);
-    const skip = (currentPage - 1) * effectivePageSize;
+  const parsedPage = parseInt(requestedPage, 10);
+  const currentPage = Math.min(
+    Math.max(1, Number.isNaN(parsedPage) ? 1 : parsedPage),
+    totalPages
+  );
 
-    return allItems.slice(skip, skip + effectivePageSize);
+  const skip = (currentPage - 1) * effectivePageSize;
+  const cars = allItems.slice(skip, skip + effectivePageSize);
+
+  return {
+    cars,
+    pagination: {
+      currentPage,
+      totalPages,
+      totalCars,
+      pageSize: effectivePageSize,
+      hasMultiplePages: totalPages > 1,
+      hasPrev: currentPage > 1,
+      hasNext: currentPage < totalPages,
+      prevPage: currentPage > 1 ? currentPage - 1 : 1,
+      nextPage: currentPage < totalPages ? currentPage + 1 : totalPages,
+    },
+  };
 }
-
 export async function getSearch(req, res) {
     const query = (req.query.q || "").trim();
     let filter = {};
@@ -57,11 +70,7 @@ export async function getSearch(req, res) {
     }
 
     const matchedCars = await carsCollection.find(filter).toArray();
-    const cars = await getPaginatedCars(matchedCars, req.query.page, PAGE_SIZE);
-
-    const totalCars = matchedCars.length;
-    const totalPages = Math.max(1, Math.ceil(totalCars / PAGE_SIZE));
-    const currentPage = Math.min(Math.max(1, parseInt(req.query.page, 10) || 1), totalPages);
+    const { cars, pagination } = await getPaginatedCars(matchedCars, req.query.page);
 
     const noResultsMessage = cars.length === 0
         ? (query
@@ -74,15 +83,7 @@ export async function getSearch(req, res) {
         searchQuery: query,
         detectedType,
         noResultsMessage,
-        pagination: {
-            currentPage,
-            totalPages,
-            totalCars,
-            pageSize: PAGE_SIZE,
-            hasMultiplePages: totalPages > 1,
-            hasPrev: currentPage > 1,
-            hasNext: currentPage < totalPages
-        }
+        pagination
     });
 }
 

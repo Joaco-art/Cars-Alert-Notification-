@@ -57,7 +57,7 @@
                     <div class="flex items-center gap-2.5">
                         {{#pagination.hasPrev}}
                             <a
-                                href="{{pagination.prevUrl}}"
+                                href="/search?q={{searchQuery}}&page={{pagination.prevPage}}"
                                 class="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-700 shadow-xs hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all duration-200"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@
 
                         {{#pagination.hasNext}}
                             <a
-                                href="{{pagination.nextUrl}}"
+                                href="/search?q={{searchQuery}}&page={{pagination.nextPage}}"
                                 class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-blue-700 transition-all duration-200"
                             >
                                 <span>Next</span>

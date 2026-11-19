@@ -17,6 +17,53 @@
         {{> hero}}
         
         {{> anunciosDestacados}}
+
+        <!-- Pagination -->
+        {{#pagination.hasMultiplePages}}
+        <nav aria-label="Pagination" class="mt-6 mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-5">
+            <p class="text-sm text-slate-600">
+                Page <span class="font-semibold text-slate-900">{{pagination.currentPage}}</span> of
+                <span class="font-semibold text-slate-900">{{pagination.totalPages}}</span>
+                <span class="text-slate-400">({{pagination.totalCars}} vehicles)</span>
+            </p>
+
+            <div class="inline-flex items-center gap-2">
+                {{#pagination.hasPrev}}
+                <a
+                    href="/?page={{pagination.prevPage}}"
+                    class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                >
+                    &larr; Previous
+                </a>
+                {{/pagination.hasPrev}}
+                {{^pagination.hasPrev}}
+                <span
+                    aria-disabled="true"
+                    class="inline-flex items-center rounded-lg border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400 cursor-not-allowed select-none"
+                >
+                    &larr; Previous
+                </span>
+                {{/pagination.hasPrev}}
+
+                {{#pagination.hasNext}}
+                <a
+                    href="/?page={{pagination.nextPage}}"
+                    class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+                >
+                    Next &rarr;
+                </a>
+                {{/pagination.hasNext}}
+                {{^pagination.hasNext}}
+                <span
+                    aria-disabled="true"
+                    class="inline-flex items-center rounded-lg border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-medium text-slate-400 cursor-not-allowed select-none"
+                >
+                    Next &rarr;
+                </span>
+                {{/pagination.hasNext}}
+            </div>
+        </nav>
+        {{/pagination.hasMultiplePages}}
         
         <div class="mb-8" id="registro">
             <h1 class="text-3xl font-bold tracking-tight text-slate-900">Welcome to the custom vehicle alert creator</h1>
