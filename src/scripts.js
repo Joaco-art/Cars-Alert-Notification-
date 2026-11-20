@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { carsAlert } from "./db.js";
+import { transporter } from "./nodemailer.js";
 
 export async function setAlert(req, res) {
     const newAlert = {
@@ -54,6 +55,13 @@ export async function getAlertInfo(req, res) {
         return res.status(404).send("Alerta no encontrada.");
     }
 
+    const emailSender = await transporter.sendMail({
+    from: '"Example Team" <team@example.com>', // sender address
+    to: `${alert.email}`, // list of recipients
+    subject: "New car alert created", // subject line
+    text: "Hello, we have received your petition succesfully, stay tunned for more", // plain text body
+  })
+
     return res.render("carInfo", {
         name: alert.name,
         email: alert.email,
@@ -64,6 +72,7 @@ export async function getAlertInfo(req, res) {
         price: alert.price,
         km: alert.km,
         condition: alert.condition,
-        hasAccident: alert.hasAccident
+        hasAccident: alert.hasAccident,
+        emailSender
     });
 }
