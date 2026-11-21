@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarsAlert - Error</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+
+    {{> header}}
+
+    <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+            <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+            </div>
+
+            <h1 class="text-2xl font-bold tracking-tight text-slate-900">Invalid Alert Data</h1>
+            <p class="mt-2 text-sm text-slate-600">
+                {{#message}}{{message}}{{/message}}
+                {{^message}}Please check that all fields are completed and contain valid values before submitting your vehicle alert.{{/message}}
+            </p>
+
+            <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                    href="/#registro"
+                    class="w-full sm:w-auto inline-flex justify-center items-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+                >
+                    Back to Form
+                </a>
+                <a
+                    href="/"
+                    class="w-full sm:w-auto inline-flex justify-center items-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                >
+                    Go Home
+                </a>
+            </div>
+        </div>
+    </main>
+
+    {{> footer}}
+
+</body>
+</html>

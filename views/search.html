@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarsAlert — Vehicle Listings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
+
+    {{> header}}
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        {{#noResultsMessage}}
+            <div class="max-w-lg mx-auto my-12 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-8 text-center shadow-sm">
+                <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-amber-950">No matching vehicles found</h2>
+                <p class="mt-1.5 text-sm text-amber-800">{{noResultsMessage}}</p>
+                {{#searchQuery}}
+                    <a href="/" class="mt-5 inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-all duration-200">
+                        View all vehicles
+                    </a>
+                {{/searchQuery}}
+            </div>
+        {{/noResultsMessage}}
+
+        {{^noResultsMessage}}
+            
+            {{> anunciosDestacados}}
+            {{#pagination.hasMultiplePages}}
+                <nav aria-label="Pagination" class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 pt-6 text-sm">
+                    <span class="text-slate-600">
+                        Page <strong class="font-semibold text-slate-900">{{pagination.currentPage}}</strong> of <strong class="font-semibold text-slate-900">{{pagination.totalPages}}</strong>
+                        <span class="text-slate-400 mx-1">·</span>
+                        <span>{{pagination.totalCars}} results</span>
+                    </span>
+
+                    <div class="flex items-center gap-2.5">
+                        {{#pagination.hasPrev}}
+                            <a
+                                href="/search?q={{searchQuery}}&page={{pagination.prevPage}}"
+                                class="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-700 shadow-xs hover:bg-slate-50 hover:border-slate-400 hover:text-slate-900 transition-all duration-200"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span>Previous</span>
+                            </a>
+                        {{/pagination.hasPrev}}
+
+                        {{#pagination.hasNext}}
+                            <a
+                                href="/search?q={{searchQuery}}&page={{pagination.nextPage}}"
+                                class="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-blue-700 transition-all duration-200"
+                            >
+                                <span>Next</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        {{/pagination.hasNext}}
+                    </div>
+                </nav>
+            {{/pagination.hasMultiplePages}}
+        {{/noResultsMessage}}
+
+    </main>
+
+    {{> footer}}
+
+</body>
+</html>
