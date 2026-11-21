@@ -1,0 +1,179 @@
+<form action="/carAlert" method="POST" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="username"
+                            placeholder="e.g. John Doe"
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="e.g. mail@example.com"
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="brand" class="block text-sm font-medium text-slate-700 mb-1.5">Brand</label>
+                        <select
+                            id="brand"
+                            name="brand"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Select a brand</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="volkswagen">Volkswagen</option>
+                            <option value="ford">Ford</option>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="honda">Honda</option>
+                            <option value="nissan">Nissan</option>
+                            <option value="hyundai">Hyundai</option>
+                            <option value="kia">Kia</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="audi">Audi</option>
+                            <option value="tesla">Tesla</option>
+                            <option value="subaru">Subaru</option>
+                            <option value="mazda">Mazda</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="model" class="block text-sm font-medium text-slate-700 mb-1.5">Model</label>
+                        <input
+                            type="text"
+                            id="model"
+                            name="model"
+                            placeholder="e.g. Corolla, Civic, Focus..."
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="year" class="block text-sm font-medium text-slate-700 mb-1.5">Year</label>
+                        <input
+                            type="number"
+                            id="year"
+                            name="year"
+                            min="1900"
+                            max="2026"
+                            placeholder="e.g. 2023"
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="fuel_type" class="block text-sm font-medium text-slate-700 mb-1.5">Fuel Type</label>
+                        <select
+                            id="fuel_type"
+                            name="fuel_type"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Select fuel type</option>
+                            <option value="gasoline">Gasoline</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="electric">Electric</option>
+                            <option value="lpg">LPG / CNG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-slate-700 mb-1.5">Max Price (EUR)</label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            min="0"
+                            step="any"
+                            placeholder="e.g. 18500"
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="km" class="block text-sm font-medium text-slate-700 mb-1.5">Max Mileage (km)</label>
+                        <input
+                            type="number"
+                            id="km"
+                            name="km"
+                            min="0"
+                            placeholder="e.g. 50000"
+                            required
+                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label for="condition" class="block text-sm font-medium text-slate-700 mb-1.5">Condition</label>
+                        <select
+                            id="condition"
+                            name="condition"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Select condition</option>
+                            <option value="New">New</option>
+                            <option value="Used">Used</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="hasAccident" class="block text-sm font-medium text-slate-700 mb-1.5">Accident History</label>
+                        <select
+                            id="hasAccident"
+                            name="hasAccident"
+                            required
+                            class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                        >
+                            <option value="">Include cars with accidents or repairs?</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                   
+                    <div>
+                        <label for="consent" class="block text-sm font-medium text-slate-700 mb-1.5">Consent</label>
+                        <input type="checkbox" id="consent" name="consent" required> I consent that my data may be used for third parties to provide comercial or business plans or activities.
+                        
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <button
+                        type="submit"
+                        class="w-full sm:w-auto inline-flex justify-center items-center rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition-colors cursor-pointer"
+                    >
+                        Save Alert
+                    </button>
+                </div>
+                
+                
+            </form>
